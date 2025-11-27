@@ -1,15 +1,15 @@
 # -----------------------
-# Etapa 1: Construir el JAR
+# Etapa 1: Construir el JAR con Java 21
 # -----------------------
-FROM maven:3.9.4-eclipse-temurin-17 AS build
+FROM maven:3-eclipse-temurin-21 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
 # -----------------------
-# Etapa 2: Ejecutar el JAR
+# Etapa 2: Ejecutar el JAR con Java 21
 # -----------------------
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 # Copiar el JAR generado en la etapa anterior
@@ -21,3 +21,4 @@ EXPOSE 8080
 
 # Comando de ejecución
 CMD ["java", "-jar", "app.jar"]
+
